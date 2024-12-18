@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: OUTLET-SERVICE
+  datasource:
+    url : jdbc:mysql://localhost:3306/OutletDb?createDatabaseIfNotExist=true
+    username : root
+    password :
+  jpa :
+    hibernate :
+      ddl-auto : update
+server:
+  port: 8080
+
+
