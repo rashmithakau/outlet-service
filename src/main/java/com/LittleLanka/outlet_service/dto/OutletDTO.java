@@ -1,5 +1,6 @@
 package com.LittleLanka.outlet_service.dto;
 
+import com.LittleLanka.outlet_service.dto.enums.OutletStatus;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -8,11 +9,9 @@ import lombok.NoArgsConstructor;
 public class OutletDTO {
     private int outletId;
     private String outletName;
-    private String Location;
-    private int UserId;
-    private enum Status {
-        Active, Inactive
-    }
+    private String location;
+    private int userId;
+    private OutletStatus status;
 
     public int getOutletId() {
         return outletId;
@@ -31,18 +30,18 @@ public class OutletDTO {
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(String location) {
-        Location = location;
+        this.location = location;
     }
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        userId = userId;
     }
 }
