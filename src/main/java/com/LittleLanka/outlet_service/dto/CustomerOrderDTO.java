@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class CustomerOrderDTO {
-    private int orderID;
+    private int cusOrderID;
     private int outletID;
     private Date orderDate;
     private LocalTime orderTime;

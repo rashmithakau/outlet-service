@@ -1,6 +1,5 @@
 package com.LittleLanka.outlet_service.entity;
 
-import com.LittleLanka.outlet_service.dto.enums.CustomerOrderStatus;
 import com.LittleLanka.outlet_service.dto.enums.FactoryOrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import java.util.List;
 public class FactoryOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderID;
+    private int facOrderId;
 
     @Column(nullable = false)
     private Date orderDate;
@@ -34,5 +33,8 @@ public class FactoryOrder {
     private Outlet outlet;
 
     @OneToMany(mappedBy = "factoryOrder")
-    private List<OrderItem> orderItem;
+    private List<FactoryOrderItem> factoryOrderItems;
+
+
+    //private List<FactoryOrderItem> factoryOrderItems;
 }

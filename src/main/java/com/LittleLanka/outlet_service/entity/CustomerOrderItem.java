@@ -8,28 +8,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItem {
+public class CustomerOrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int OrderItemID;
+    private int cusOrderItemId;
 
     @Column(nullable = false)
-    private int OrderID;
+    private int productId;
 
     @Column(nullable = false)
-    private int ProductID;
-
-    @Column(nullable = false)
-    private double Quantity;
-
-    @Enumerated(EnumType.STRING)
-    private OrderType orderType;
+    private double quantity;
 
     @ManyToOne
     @JoinColumn(name = "customer-order_id", nullable = false)
     private CustomerOrder customerOrder;
 
-    @ManyToOne
-    @JoinColumn(name = "factory-order_id", nullable = false)
-    private FactoryOrder factoryOrder;
 }

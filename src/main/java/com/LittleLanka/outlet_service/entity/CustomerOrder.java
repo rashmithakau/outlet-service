@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderID;
+    private int cusOrderID;
 
     @Column(nullable = false)
     private Date orderDate;
@@ -33,5 +33,5 @@ public class CustomerOrder {
     private Outlet outlet;
 
     @OneToMany(mappedBy = "customerOrder")
-    private List<OrderItem> orderItem;
+    private List<CustomerOrderItem> customerOrderItem;
 }

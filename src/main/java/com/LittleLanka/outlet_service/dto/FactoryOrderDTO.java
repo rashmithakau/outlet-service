@@ -12,9 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class FactoryOrderDTO {
-    private int OrderID;
-    private int OutletID;
-    private Date OrderDate;
-    private LocalTime OrderTime;
-    private FactoryOrderStatus Status;
+    private int orderId;
+    private int outletId;
+    private Date orderDate;
+    private LocalTime orderTime;
+    private FactoryOrderStatus status;
 }
