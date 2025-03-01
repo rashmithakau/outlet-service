@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: PRODUCT-SERVICE
+  datasource:
+    url : jdbc:mysql://productdb.crmk6gmiy488.eu-north-1.rds.amazonaws.com:3306/outletDb?createDatabaseIfNotExist=true
+    username : root
+    password : productDbpwd
+  jpa :
+    hibernate :
+      ddl-auto : update
+server:
+  port: 8080
