@@ -24,9 +24,6 @@ public class FactoryOrder {
     private Date orderDate;
 
     @Column(nullable = false)
-    private Time orderTime;
-
-    @Column(nullable = false)
     private FactoryOrderStatus status;
 
     @ManyToOne
