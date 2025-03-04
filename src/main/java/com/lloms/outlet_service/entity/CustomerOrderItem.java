@@ -20,6 +20,7 @@ public class CustomerOrderItem {
     @Column(nullable = false)
     private double quantity;
 
+    @Column(nullable = false)
     private double discountPerUnit;
 
     @ManyToOne

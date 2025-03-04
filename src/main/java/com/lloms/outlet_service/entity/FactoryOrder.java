@@ -32,7 +32,4 @@ public class FactoryOrder {
 
     @OneToMany(mappedBy = "factoryOrder")
     private List<FactoryOrderItem> factoryOrderItems;
-
-
-    //private List<FactoryOrderItem> factoryOrderItems;
 }
