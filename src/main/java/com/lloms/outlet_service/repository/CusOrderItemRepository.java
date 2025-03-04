@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @EnableJpaRepositories
-public interface OrderItemRepository extends JpaRepository <CustomerOrderItem, Integer> {
+public interface CusOrderItemRepository extends JpaRepository <CustomerOrderItem, Integer> {
 }

@@ -23,14 +23,11 @@ public class CustomerOrder {
     private Date orderDate;
 
     @Column(nullable = false)
-    private Time orderTime;
-
-    @Column(nullable = false)
     private CustomerOrderStatus status;
 
-    private String CustomerName;
+    private String customerName;
 
-    private String CustomerPhone;
+    private String customerPhone;
 
     @ManyToOne
     @JoinColumn(name = "outlet_id",nullable = false)

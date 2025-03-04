@@ -1,6 +1,6 @@
 package com.lloms.outlet_service.dto.request;
 
-import com.lloms.outlet_service.dto.FactoryOrderItemDTO;
+import com.lloms.outlet_service.dto.CustomerOrderItemDTO;
 import com.lloms.outlet_service.enums.FactoryOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +12,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FactoryOrderRequestDTO {
+public class CustomerOrderRequestDTO {
     private Date orderDate;
     private FactoryOrderStatus status;
     private Integer outletId;
-    private List<FactoryOrderItemDTO> items;  // List of items in the order
+    private String customerName;
+    private String customerPhone;
+    private List<CustomerOrderItemDTO> items;
 }

@@ -17,7 +17,7 @@ public class FactoryOrderController {
     @PostMapping("")
     public ResponseEntity<StandardResponse> saveFacOrder(@RequestBody FactoryOrderRequestDTO factoryOrderRequestDTO) {
         System.out.println(factoryOrderRequestDTO);
-        //factoryOrderService.saveFacOrder(factoryOrderRequestDTO);
+        factoryOrderService.saveFacOrder(factoryOrderRequestDTO);
         return new ResponseEntity<>(new StandardResponse(), HttpStatus.CREATED);
     }
 }
