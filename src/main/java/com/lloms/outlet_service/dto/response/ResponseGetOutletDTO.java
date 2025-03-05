@@ -1,15 +1,14 @@
-package com.lloms.outlet_service.dto;
-
+package com.lloms.outlet_service.dto.response;
 
 import com.lloms.outlet_service.enums.OutletStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class OutletDTO {
+public class ResponseGetOutletDTO {
     private String outletId;
     private String outletName;
     private String location;

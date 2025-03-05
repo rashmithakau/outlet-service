@@ -27,6 +27,9 @@ public class Outlet{
     @Column(nullable = false,length = 50)
     private int userId;
 
+    @Column(name = "image-url")
+    private String imageUrl;
+
     @Enumerated(EnumType.STRING)
     private OutletStatus status;
 
