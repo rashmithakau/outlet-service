@@ -7,10 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.nio.charset.StandardCharsets;
-
 @RestControllerAdvice
-public class AppWideExceptionHandler {
+public class AdvisorExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<StandardResponse> HandleNotFoundException(NotFoundException e){
         return new ResponseEntity<StandardResponse>(
