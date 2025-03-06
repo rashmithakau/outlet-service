@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CustomerOrderItemDTO {
-    private int cusOrderItemId;
-    private int cusOrderID;
     private int productId;
     private double quantity;
     private double discountPerUnit;

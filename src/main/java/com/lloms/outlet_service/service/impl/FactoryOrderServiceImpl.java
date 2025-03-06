@@ -25,23 +25,26 @@ public class FactoryOrderServiceImpl implements FactoryOrderService {
     private ModelMapper modelMapper;
 
     public void saveFacOrder(FactoryOrderRequestDTO facOrdReq) {
-        Outlet outlet = outletRepository.findById(facOrdReq.getOutletId()).get();
+        // Fetch the outlet safely
+        Outlet outlet = outletRepository.findById(facOrdReq.getOutletId())
+                .orElseThrow(() -> new RuntimeException("Outlet not found"));
 
+        // Map FactoryOrderRequestDTO to FactoryOrder
         FactoryOrder facOrder = modelMapper.map(facOrdReq, FactoryOrder.class);
         facOrder.setOutlet(outlet);
 
-        FactoryOrder savedfactoryOrder=factoryOrderRepository.save(facOrder);
-
-        List<FactoryOrderItem> items=new ArrayList<>();
-        for (FactoryOrderItemDTO item:facOrdReq.getItems()) {
-            FactoryOrderItem facOrderItem = modelMapper.map(item, FactoryOrderItem.class);
-            facOrderItem.setFactoryOrder(savedfactoryOrder);
-            items.add(facOrderItem);
+        // Map and associate FactoryOrderItems
+        List<FactoryOrderItem> orderItems = new ArrayList<>();
+        for (FactoryOrderItemDTO factoryOrderItemDTO : facOrdReq.getItems()) {
+            FactoryOrderItem orderItem = modelMapper.map(factoryOrderItemDTO, FactoryOrderItem.class);
+            orderItem.setFactoryOrder(facOrder);  // Associate with FactoryOrder
+            orderItems.add(orderItem);
         }
 
+        facOrder.setFactoryOrderItems(orderItems);
 
-        facOrderItemRepository.saveAll(items);
-
-
+        // Save FactoryOrder with items (CascadeType.ALL handles saving items)
+        factoryOrderRepository.save(facOrder);
     }
+
 }
