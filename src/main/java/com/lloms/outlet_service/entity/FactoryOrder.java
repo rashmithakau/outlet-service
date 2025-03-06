@@ -30,6 +30,6 @@ public class FactoryOrder {
     @JoinColumn(name = "outlet_id",nullable = false)
     private Outlet outlet;
 
-    @OneToMany(mappedBy = "factoryOrder")
+    @OneToMany(mappedBy = "factoryOrder",cascade = CascadeType.ALL)
     private List<FactoryOrderItem> factoryOrderItems;
 }

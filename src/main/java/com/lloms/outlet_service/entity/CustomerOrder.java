@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +32,6 @@ public class CustomerOrder {
     @JoinColumn(name = "outlet_id",nullable = false)
     private Outlet outlet;
 
-    @OneToMany(mappedBy = "customerOrder")
+    @OneToMany(mappedBy = "customerOrder",cascade = CascadeType.ALL)
     private List<CustomerOrderItem> customerOrderItem;
 }

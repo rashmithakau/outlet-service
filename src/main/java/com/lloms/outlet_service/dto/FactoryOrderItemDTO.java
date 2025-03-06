@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FactoryOrderItemDTO {
-    private int facOrderItemId;
-    private int facOrderID;
     private int productId;
     private double quantity;
 }

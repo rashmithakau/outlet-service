@@ -1,6 +1,6 @@
 spring:
   application:
-    name: PRODUCT-SERVICE
+    name: OUTLET-SERVICE
   datasource:
     url : jdbc:mysql://productdb.crmk6gmiy488.eu-north-1.rds.amazonaws.com:3306/outletDb?createDatabaseIfNotExist=true
     username : root
@@ -9,5 +9,4 @@ spring:
     hibernate :
       ddl-auto : update
 server:
-  port: 8082
-
+  port: 8088
