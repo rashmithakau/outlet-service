@@ -24,8 +24,10 @@ public class CustomerOrder {
     @Column(nullable = false)
     private CustomerOrderStatus status;
 
+    @Column(nullable = true)
     private String customerName;
 
+    @Column(nullable = true)
     private String customerPhone;
 
     @ManyToOne
