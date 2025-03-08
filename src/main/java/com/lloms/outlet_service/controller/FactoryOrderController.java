@@ -1,5 +1,6 @@
 package com.lloms.outlet_service.controller;
 
+import com.lloms.outlet_service.dto.FactoryOrderItemDTO;
 import com.lloms.outlet_service.dto.request.FactoryOrderRequestDTO;
 import com.lloms.outlet_service.dto.response.FactoryOrderResDTO;
 import com.lloms.outlet_service.service.FactoryOrderService;
@@ -30,6 +31,16 @@ public class FactoryOrderController {
         List<FactoryOrderResDTO> factoryOrderResDTOS= factoryOrderService.getFacOrderByStatus(status);
         StandardResponse standardResponse = new StandardResponse();
         standardResponse.setData(factoryOrderResDTOS);
+        standardResponse.setMessage("success");
+        standardResponse.setCode(HttpStatus.CREATED.value());
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<StandardResponse> getFacOrderItems(@RequestParam Integer facOrId) {//any=>all Confirmed Canceled
+        List<FactoryOrderItemDTO> factoryOrderItemDTOS= factoryOrderService.getFacOrderItemsById(facOrId);
+        StandardResponse standardResponse = new StandardResponse();
+        standardResponse.setData(factoryOrderItemDTOS);
         standardResponse.setMessage("success");
         standardResponse.setCode(HttpStatus.CREATED.value());
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
