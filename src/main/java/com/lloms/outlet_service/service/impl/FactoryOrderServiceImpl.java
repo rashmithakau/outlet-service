@@ -130,4 +130,17 @@ public class FactoryOrderServiceImpl implements FactoryOrderService {
 
         return factoryOrderItemDTOList;
     }
+
+    @Override
+    public boolean changeOrderStatus(Integer facOrId, FactoryOrderStatus status) {
+        try {
+            FactoryOrder facOrder = factoryOrderRepository.findById(facOrId).orElseThrow(RuntimeException::new);
+            facOrder.setStatus(status);
+             factoryOrderRepository.save(facOrder);
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

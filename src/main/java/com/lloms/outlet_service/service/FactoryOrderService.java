@@ -13,4 +13,6 @@ public interface FactoryOrderService {
      List<FactoryOrderResDTO> getFacOrderByStatus(FactoryOrderStatus status);
 
      List<FactoryOrderItemDTO> getFacOrderItemsById(Integer facOrId);
+
+     boolean changeOrderStatus(Integer facOrId, FactoryOrderStatus status);
 }
