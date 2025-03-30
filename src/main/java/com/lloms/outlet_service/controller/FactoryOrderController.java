@@ -45,4 +45,15 @@ public class FactoryOrderController {
         standardResponse.setCode(HttpStatus.CREATED.value());
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
+
+    @PutMapping("/status")
+    public ResponseEntity<StandardResponse> changeOrderStatus(@RequestParam Integer facOrId, @RequestParam FactoryOrderStatus status) {
+        Boolean isSaved=factoryOrderService.changeOrderStatus(facOrId,status);
+        StandardResponse standardResponse = new StandardResponse();
+        standardResponse.setData(isSaved);
+        standardResponse.setMessage("success");
+        standardResponse.setCode(HttpStatus.CREATED.value());
+        System.out.println("updateed status");
+        return new ResponseEntity<>(standardResponse, HttpStatus.CREATED);
+    }
 }
