@@ -36,6 +36,16 @@ public class FactoryOrderController {
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/byId")
+    public ResponseEntity<StandardResponse> getFacOrdersByFacOrId(@RequestParam Integer facOrId) {//any=>all Confirmed Canceled
+        List<FactoryOrderResDTO> factoryOrderResDTOS= factoryOrderService.getFacOrderById(facOrId);
+        StandardResponse standardResponse = new StandardResponse();
+        standardResponse.setData(factoryOrderResDTOS);
+        standardResponse.setMessage("success");
+        standardResponse.setCode(HttpStatus.CREATED.value());
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
+
     @GetMapping("/items")
     public ResponseEntity<StandardResponse> getFacOrderItems(@RequestParam Integer facOrId) {//any=>all Confirmed Canceled
         List<FactoryOrderItemDTO> factoryOrderItemDTOS= factoryOrderService.getFacOrderItemsById(facOrId);

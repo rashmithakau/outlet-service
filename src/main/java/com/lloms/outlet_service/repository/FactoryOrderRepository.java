@@ -12,4 +12,6 @@ import java.util.List;
 @EnableJpaRepositories
 public interface FactoryOrderRepository extends JpaRepository <FactoryOrder, Integer> {
     List<FactoryOrder> getFactoryOrderByStatus(FactoryOrderStatus status);
+
+    List<FactoryOrder> getFactoryOrderByFacOrderId(Integer facOrderId);
 }
