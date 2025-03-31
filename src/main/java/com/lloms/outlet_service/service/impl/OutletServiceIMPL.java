@@ -1,5 +1,6 @@
 package com.lloms.outlet_service.service.impl;
 
+import com.lloms.outlet_service.dto.OutletDTO;
 import com.lloms.outlet_service.dto.request.OutletSaveRequestDTO;
 import com.lloms.outlet_service.dto.request.RequestUpdateOutletDTO;
 import com.lloms.outlet_service.dto.response.ResponseGetOutletDTO;
@@ -9,31 +10,54 @@ import com.lloms.outlet_service.repository.OutletRepository;
 import com.lloms.outlet_service.service.OutletService;
 import com.lloms.outlet_service.util.StandardResponse;
 import com.sun.jdi.request.DuplicateRequestException;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class OutletServiceIMPL implements OutletService {
-    @Autowired
-    private OutletRepository outletRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final OutletRepository outletRepository;
+    private final ModelMapper modelMapper;
+    private final String IMAGE_UPLOAD_DIR = "src/main/java/com/lloms/outlet_service/assets/";
 
     @Override
-    public String saveOutlet(OutletSaveRequestDTO outletSaveRequestDTO) {
+    public OutletDTO saveOutlet(OutletSaveRequestDTO outletSaveRequestDTO) {
+        MultipartFile image = outletSaveRequestDTO.getImageFile();
+        String imageUrl = null;
+
+        if (image != null && !image.isEmpty()) {
+            try {
+                String fileName = UUID.randomUUID() + "_" + image.getOriginalFilename();
+                Path imagePath = Paths.get(IMAGE_UPLOAD_DIR + fileName);
+                Files.createDirectories(imagePath.getParent());
+                Files.write(imagePath, image.getBytes());
+                imageUrl = imagePath.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         Outlet outlet = modelMapper.map(outletSaveRequestDTO,Outlet.class);
+        outlet.setImageUrl(imageUrl);
         if(!outletRepository.existsById(outlet.getOutletId())){
             outletRepository.save(outlet);
-            return outlet.getOutletId()+" Saved Successfully";
+            return modelMapper.map(outlet,OutletDTO.class);
         }else{
             throw new DuplicateKeyException("Already Added");
         }
@@ -79,6 +103,20 @@ public class OutletServiceIMPL implements OutletService {
         }else{
             throw new NotFoundException("Outlet not found with Id "+ outletID);
         }
+    }
+
+    @Override
+    public Resource getImageByUrl(String url) {
+        String imagePath = IMAGE_UPLOAD_DIR + url;
+        File file = new File(imagePath);
+
+        // Ensure the file exists
+        if (!file.exists()) {
+            throw new RuntimeException("Image not found: " + url);
+        }
+
+        // Create a resource from the image file
+        return new FileSystemResource(file);
     }
 
 

@@ -1,12 +1,16 @@
 package com.lloms.outlet_service.controller;
 
+import com.lloms.outlet_service.dto.OutletDTO;
 import com.lloms.outlet_service.dto.request.OutletSaveRequestDTO;
 import com.lloms.outlet_service.dto.request.RequestUpdateOutletDTO;
 import com.lloms.outlet_service.dto.response.ResponseGetOutletDTO;
 import com.lloms.outlet_service.service.OutletService;
 import com.lloms.outlet_service.util.StandardResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,17 +19,15 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/outlet")
 @CrossOrigin
+@AllArgsConstructor
 public class OutletController {
-    @Autowired
     private OutletService outletService;
 
-    @PostMapping(
-            path = {"/save"}
-    )
-    public ResponseEntity<StandardResponse> saveOutlet(@RequestBody OutletSaveRequestDTO outletSaveRequestDTO){
-       String message = outletService.saveOutlet(outletSaveRequestDTO);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse(201,"Success",message),
+    @PostMapping(consumes = {"multipart/form-data"}, path = "/save")
+    public ResponseEntity<StandardResponse> saveOutlet(@ModelAttribute OutletSaveRequestDTO outletSaveRequestDTO){
+        OutletDTO outlet = outletService.saveOutlet(outletSaveRequestDTO);
+        return new ResponseEntity<>(
+                new StandardResponse(201,"Success",outlet),
                 HttpStatus.CREATED
         );
     }
@@ -64,5 +66,12 @@ public class OutletController {
                 new StandardResponse(200, "outlet is updated successfully!", updatedOutlet),
                 HttpStatus.CREATED
         );
+    }
+
+    // get image by url
+    @GetMapping("/url/{url}")
+    public ResponseEntity<Resource> getImageByUrl(@PathVariable(value = "url") String url) {
+        Resource imageResource = outletService.getImageByUrl(url);
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageResource);
     }
 }
