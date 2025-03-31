@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,4 +23,5 @@ public class OutletSaveRequestDTO {
     private String location;
     private int userId;
     private OutletStatus status;
+    private MultipartFile imageFile;
 }
