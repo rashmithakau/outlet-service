@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class CustomerOrderItemDTO {
     private int productId;
+    private String productName;
     private double quantity;
+    private double unitPrice;
     private double discountPerUnit;
 }
