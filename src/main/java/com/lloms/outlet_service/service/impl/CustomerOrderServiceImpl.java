@@ -13,12 +13,14 @@ import com.lloms.outlet_service.repository.OutletRepository;
 import com.lloms.outlet_service.service.CustomerOrderService;
 import com.lloms.outlet_service.service.intercommunication.ProductApiClient;
 import com.lloms.outlet_service.util.StandardResponse;
+import com.lloms.outlet_service.util.functions.ServiceFunctions;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,10 +32,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     private final CusOrderItemRepository cusOrderItemRepository;
     private final OutletRepository outletRepository;
     private final ProductApiClient productApiClient;
+    private final ServiceFunctions serviceFunctions;
     private ModelMapper modelMapper;
 
     @Transactional
-    public void saveFacOrder(CustomerOrderRequestDTO cusOrdReq) {
+    public void saveCusOrder(CustomerOrderRequestDTO cusOrdReq) {
         // Fetch the outlet safely
         Outlet outlet = outletRepository.findById(cusOrdReq.getOutletId())
                 .orElseThrow(() -> new RuntimeException("Outlet not found"));
@@ -68,6 +71,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                 .map(order -> new CusOrderResponseDTO(
                         order.getCusOrderID(),
                         order.getOutlet().getOutletId().toString(),
+                        order.getOutlet().getOutletName(),
                         order.getOrderDate(),
                         order.getStatus(),
                         order.getCustomerName(),
@@ -120,4 +124,39 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         return customerOrderItemDTOList;
     }
 
+    @Override
+    public List<CusOrderResponseDTO> findAllByOutletIdAndDate(int outletId, String date) {
+        Date dateObj = serviceFunctions.makeDate(date);
+        List<CustomerOrder> orders = customerOrderRepository.findAllByOutletAndDate(outletId, dateObj);
+        return orders.stream()
+                .map(order -> new CusOrderResponseDTO(
+                        order.getCusOrderID(),
+                        order.getOutlet().getOutletId().toString(),
+                        order.getOutlet().getOutletName(),
+                        order.getOrderDate(),
+                        order.getStatus(),
+                        order.getCustomerName(),
+                        order.getCustomerPhone()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<CusOrderResponseDTO> findAllByOutletIdAndMonthAndDate(int outletId, int year, int month) {
+        // Call the repository to get orders filtered by outlet, year, and month
+        List<CustomerOrder> orders = customerOrderRepository.findAllByOutletAndYearAndMonth(outletId, year, month);
+
+        // Map the orders to DTOs
+        return orders.stream()
+                .map(order -> new CusOrderResponseDTO(
+                        order.getCusOrderID(),
+                        order.getOutlet().getOutletId().toString(),
+                        order.getOutlet().getOutletName(),
+                        order.getOrderDate(),
+                        order.getStatus(),
+                        order.getCustomerName(),
+                        order.getCustomerPhone()
+                ))
+                .toList();
+    }
 }

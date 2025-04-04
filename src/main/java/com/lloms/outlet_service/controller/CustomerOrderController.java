@@ -22,7 +22,7 @@ public class CustomerOrderController {
     @PostMapping("")
     public ResponseEntity<StandardResponse> saveCusOrder(@RequestBody CustomerOrderRequestDTO customerOrderRequestDTO) {
         System.out.println(customerOrderRequestDTO);
-        customerOrderService.saveFacOrder(customerOrderRequestDTO);
+        customerOrderService.saveCusOrder(customerOrderRequestDTO);
         return new ResponseEntity<>(new StandardResponse(), HttpStatus.CREATED);
     }
 
@@ -37,6 +37,24 @@ public class CustomerOrderController {
     public ResponseEntity<StandardResponse> getCusOrderItems(@RequestParam Integer cusOrId) {//any=>all Confirmed Canceled
         List<CustomerOrderItemDTO> customerOrderItemDTOS= customerOrderService.getCusOrderItems(cusOrId);
         return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(), "Successfully fetch all cusOrders", customerOrderItemDTOS),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/all-by-outlet-date/{id}/{date}")
+    public ResponseEntity<StandardResponse> findAllByOutletIdAndDate(@PathVariable("id") int outletId, @PathVariable("date") String date) {
+        List<CusOrderResponseDTO> allOrders = customerOrderService.findAllByOutletIdAndDate(outletId, date);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(), "Successfully fetch all cusOrders", allOrders),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/all-by-outlet-year-month/{id}/{year}/{month}")
+    public ResponseEntity<StandardResponse> findAllByOutletIdAndMonthAndDate(
+            @PathVariable("id") int outletId,
+            @PathVariable("year") int year,
+            @PathVariable("month") int month
+    ) {
+        List<CusOrderResponseDTO> allOrders = customerOrderService.findAllByOutletIdAndMonthAndDate(outletId, year, month);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(), "Successfully fetch all cusOrders", allOrders),
                 HttpStatus.OK);
     }
 }

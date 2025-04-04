@@ -13,6 +13,7 @@ import java.util.Date;
 public class CusOrderResponseDTO {
     private Integer cusOrderID;
     private String outletID;
+    private String outletName;
     private Date orderDate;
     private CustomerOrderStatus status;
     private String customerName;
