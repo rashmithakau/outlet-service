@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,17 +22,13 @@ public class OutletReturn {
     @Column(nullable = false)
     private Date returnDate;
 
-    @Column(nullable = false)
-    private Time returnTime;
-
     @Enumerated(EnumType.STRING)
     private OutletReturnStatus outletReturnStatus;
-
-    @Column(nullable = false)
-    private String outletName;
 
     @ManyToOne
     @JoinColumn(name = "outlet_id")
     private Outlet outlet;
 
+    @OneToMany(mappedBy = "factoryOrder",cascade = CascadeType.ALL)
+    private List<ReturnItem> returnItems;
 }

@@ -24,9 +24,6 @@ public class Outlet{
     @Column(nullable = false,length = 50)
     private String location;
 
-    @Column(nullable = false,length = 50)
-    private int userId;
-
     @Column(name = "image-url")
     private String imageUrl;
 
