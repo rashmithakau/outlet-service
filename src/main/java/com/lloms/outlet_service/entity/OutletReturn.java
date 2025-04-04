@@ -29,6 +29,7 @@ public class OutletReturn {
     @JoinColumn(name = "outlet_id")
     private Outlet outlet;
 
-    @OneToMany(mappedBy = "factoryOrder",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "outletReturn", cascade = CascadeType.ALL)
     private List<ReturnItem> returnItems;
+
 }
