@@ -53,15 +53,15 @@ public class OutletServiceIMPL implements OutletService {
                 e.printStackTrace();
             }
         }
-        Outlet outlet = modelMapper.map(outletSaveRequestDTO,Outlet.class);
+
+        Outlet outlet = modelMapper.map(outletSaveRequestDTO, Outlet.class);
         outlet.setImageUrl(imageUrl);
-        if(!outletRepository.existsById(outlet.getOutletId())){
-            outletRepository.save(outlet);
-            return modelMapper.map(outlet,OutletDTO.class);
-        }else{
-            throw new DuplicateKeyException("Already Added");
-        }
+
+        // ✅ Just save directly
+        Outlet saved = outletRepository.save(outlet);
+        return modelMapper.map(saved, OutletDTO.class);
     }
+
 
     @Override
     public ResponseGetOutletDTO getOutletById(int outletId) {
@@ -117,6 +117,4 @@ public class OutletServiceIMPL implements OutletService {
         // Create a resource from the image file
         return new FileSystemResource(file);
     }
-
-
 }
