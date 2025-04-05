@@ -21,7 +21,6 @@ import java.util.List;
 public class OutletSaveRequestDTO {
     private String outletName;
     private String location;
-    private int userId;
     private OutletStatus status;
     private MultipartFile imageFile;
 }
