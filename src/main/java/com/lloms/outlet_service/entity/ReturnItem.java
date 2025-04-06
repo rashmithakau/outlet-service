@@ -22,4 +22,5 @@ public class ReturnItem {
     @ManyToOne
     @JoinColumn(name = "return_id", nullable = false)
     private OutletReturn outletReturn;
+
 }
