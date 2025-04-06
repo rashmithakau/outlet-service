@@ -66,7 +66,7 @@ public class OutletServiceIMPL implements OutletService {
     @Override
     public ResponseGetOutletDTO getOutletById(int outletId) {
         if(outletRepository.existsById(outletId)){
-            Outlet outlet = outletRepository.getReferenceById(outletId);
+            Outlet outlet = outletRepository.findById(outletId).get();
             return modelMapper.map(outlet,ResponseGetOutletDTO.class);
         }else {
             throw new NotFoundException("No outlet found!");

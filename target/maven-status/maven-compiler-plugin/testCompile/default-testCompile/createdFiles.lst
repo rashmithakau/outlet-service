@@ -1,1 +1,4 @@
+com/lloms/outlet_service/controller/CustomerOrderControllerTest.class
+com/lloms/outlet_service/controller/FactoryOrderControllerTest.class
+com/lloms/outlet_service/service/impl/CustomerOrderServiceImplTest.class
 com/lloms/outlet_service/OutletServiceApplicationTests.class

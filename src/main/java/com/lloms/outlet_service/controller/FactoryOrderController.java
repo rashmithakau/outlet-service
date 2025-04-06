@@ -32,7 +32,7 @@ public class FactoryOrderController {
         StandardResponse standardResponse = new StandardResponse();
         standardResponse.setData(factoryOrderResDTOS);
         standardResponse.setMessage("success");
-        standardResponse.setCode(HttpStatus.CREATED.value());
+        standardResponse.setCode(HttpStatus.OK.value());
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
@@ -42,7 +42,7 @@ public class FactoryOrderController {
         StandardResponse standardResponse = new StandardResponse();
         standardResponse.setData(factoryOrderResDTOS);
         standardResponse.setMessage("success");
-        standardResponse.setCode(HttpStatus.CREATED.value());
+        standardResponse.setCode(HttpStatus.OK.value());
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
@@ -52,7 +52,7 @@ public class FactoryOrderController {
         StandardResponse standardResponse = new StandardResponse();
         standardResponse.setData(factoryOrderItemDTOS);
         standardResponse.setMessage("success");
-        standardResponse.setCode(HttpStatus.CREATED.value());
+        standardResponse.setCode(HttpStatus.OK.value());  // Change this to OK (200)
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
