@@ -5,7 +5,15 @@ spring:
     url : jdbc:mysql://35.222.69.207:3306/outletDb?createDatabaseIfNotExist=true
     username : springuser
     password : springuserpwd
+    hikari:
+      maximum-pool-size: 10
+      max-lifetime: 1800000        # 30 mins
+      idle-timeout: 600000         # 10 mins
+      connection-timeout: 30000    # 30 secs
+      validation-timeout: 5000     # 5 secs
+      keepalive-time: 300000       # 5 mins
   jpa :
+    open-in-view: false
     hibernate :
       ddl-auto : update
 server:
