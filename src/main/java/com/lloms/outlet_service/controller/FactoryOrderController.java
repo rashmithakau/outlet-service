@@ -36,6 +36,17 @@ public class FactoryOrderController {
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/byOutId")
+    public ResponseEntity<StandardResponse> getFacOrdersByOutletId(@RequestParam Integer outId) {//any=>all Confirmed Canceled
+        List<FactoryOrderResDTO> factoryOrderResDTOS= factoryOrderService.getFacOrdersByOutletId(outId);
+        StandardResponse standardResponse = new StandardResponse();
+        standardResponse.setData(factoryOrderResDTOS);
+        standardResponse.setMessage("success");
+        standardResponse.setCode(HttpStatus.OK.value());
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
+
+
     @GetMapping("/byId")
     public ResponseEntity<StandardResponse> getFacOrdersByFacOrId(@RequestParam Integer facOrId) {//any=>all Confirmed Canceled
         List<FactoryOrderResDTO> factoryOrderResDTOS= factoryOrderService.getFacOrderById(facOrId);
