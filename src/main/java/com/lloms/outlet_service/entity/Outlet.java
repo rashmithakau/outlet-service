@@ -21,6 +21,10 @@ public class Outlet{
     @Column(nullable = false,length = 50)
     private String outletName;
 
+    @Column(nullable = false, length = 10)
+    private String phoneNumber;
+
+
     @Column(nullable = false,length = 50)
     private String location;
 

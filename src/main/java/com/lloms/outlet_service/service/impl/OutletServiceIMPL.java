@@ -92,6 +92,7 @@ public class OutletServiceIMPL implements OutletService {
             Outlet outlet = outletToUpdate.get();
 
             //update only userId, status and imageUrl
+            outlet.setPhoneNumber(requestUpdateOutletDTO.getPhoneNumber());
             outlet.setStatus(requestUpdateOutletDTO.getStatus());
             outlet.setImageUrl(requestUpdateOutletDTO.getImageUrl());
 

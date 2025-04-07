@@ -18,3 +18,5 @@ spring:
       ddl-auto : update
 server:
   port: 8088
+
+#35.222.69.207

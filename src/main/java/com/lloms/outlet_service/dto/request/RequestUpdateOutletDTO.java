@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class RequestUpdateOutletDTO {
     private int userId;
+    private String phoneNumber;
     private OutletStatus status;
     private String imageUrl;
 }

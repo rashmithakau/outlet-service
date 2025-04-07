@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class OutletDTO {
     private String outletId;
     private String outletName;
+    private String phoneNumber;
     private String location;
     private OutletStatus status;
     private String imageUrl;

@@ -20,6 +20,7 @@ import java.util.List;
 @Data
 public class OutletSaveRequestDTO {
     private String outletName;
+    private String phoneNumber;
     private String location;
     private OutletStatus status;
     private MultipartFile imageFile;
