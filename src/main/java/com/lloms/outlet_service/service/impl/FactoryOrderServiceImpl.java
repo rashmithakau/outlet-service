@@ -170,4 +170,32 @@ public class FactoryOrderServiceImpl implements FactoryOrderService {
 
         return factoryOrderResDTOList;
     }
+
+    @Override
+    public List<FactoryOrderResDTO> getFacOrdersByOutletId(Integer outId) {
+        Outlet outlet = outletRepository.findById(outId).orElseThrow(RuntimeException::new);
+        List<FactoryOrder> factoryOrderList = factoryOrderRepository.getFactoryOrderByOutlet(outlet);
+        List<FactoryOrderResDTO> factoryOrderResDTOList = new ArrayList<>();
+        factoryOrderList.forEach(factoryOrder -> {
+            FactoryOrderResDTO factoryOrderResDTO = modelMapper.map(factoryOrder, FactoryOrderResDTO.class);
+            factoryOrderResDTO.setOutletName(factoryOrder.getOutlet().getOutletName());
+            factoryOrderResDTOList.add(factoryOrderResDTO);
+        });
+
+        StandardResponse<List<ResponseGetAllProductsDTO>> res = productApiClient.getPriceListByDateAndProductIdList(
+                new RequestDateAndPriceListDTO("2025-12-12", new ArrayList<Long>(Arrays.asList(1L)))).getBody();
+
+        if (res != null && res.getData() != null) {
+            // Assuming the data is a list of ResponseGetAllProductsDTO
+            List<ResponseGetAllProductsDTO> productsList = res.getData();
+            productsList.forEach(product -> {
+                System.out.println(product.getProductId());  // Adjust based on the fields in ResponseGetAllProductsDTO
+            });
+        } else {
+            System.out.println("No data received or response is null.");
+        }
+
+
+        return factoryOrderResDTOList;
+    }
 }
