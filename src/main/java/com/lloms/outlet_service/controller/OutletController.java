@@ -74,4 +74,27 @@ public class OutletController {
         Resource imageResource = outletService.getImageByUrl(url);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageResource);
     }
+
+    @PutMapping("status-by-id/{id}")
+    public ResponseEntity<StandardResponse> updateOutletStatus(@PathVariable(value = "id") int outletID){
+        OutletDTO outletDTO = outletService.updateOutletStatus(outletID);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(), "Successfully updated outlet status", outletDTO),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("incative-outlets")
+    public ResponseEntity<StandardResponse> getIncativeOutlets(){
+        List<ResponseGetOutletDTO> allOutlets = outletService.getIncativeOutlets();
+        return new ResponseEntity<StandardResponse>(new StandardResponse(200, "fetch all outlets successfully!", allOutlets),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<StandardResponse> getAllActiveAndInactiveOutlets(){
+        List<ResponseGetOutletDTO> allOutlets = outletService.getAllActiveAndInactiveOutlets();
+        return new ResponseEntity<StandardResponse>(new StandardResponse(200, "fetch all outlets successfully!", allOutlets),
+                HttpStatus.OK
+        );
+    }
 }

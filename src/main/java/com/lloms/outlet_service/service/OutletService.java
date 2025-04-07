@@ -18,4 +18,10 @@ public interface OutletService {
     ResponseGetOutletDTO updateOutlet(RequestUpdateOutletDTO requestUpdateOutletDTO, int outletID);
 
     Resource getImageByUrl(String url);
+
+    OutletDTO updateOutletStatus(int outletID);
+
+    List<ResponseGetOutletDTO> getIncativeOutlets();
+
+    List<ResponseGetOutletDTO> getAllActiveAndInactiveOutlets();
 }
