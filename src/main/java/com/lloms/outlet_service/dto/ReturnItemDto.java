@@ -15,4 +15,6 @@ public class ReturnItemDto {
     private Integer productId;
     private double quantity;
     private String reason;
+    private String productName;
+    private Double unitPrice;
 }
