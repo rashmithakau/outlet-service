@@ -5,6 +5,7 @@ import com.lloms.outlet_service.dto.request.OutletSaveRequestDTO;
 import com.lloms.outlet_service.dto.request.RequestUpdateOutletDTO;
 import com.lloms.outlet_service.dto.response.ResponseGetOutletDTO;
 import com.lloms.outlet_service.entity.Outlet;
+import com.lloms.outlet_service.enums.OutletStatus;
 import com.lloms.outlet_service.exception.NotFoundException;
 import com.lloms.outlet_service.repository.OutletRepository;
 import com.lloms.outlet_service.service.OutletService;
@@ -75,14 +76,11 @@ public class OutletServiceIMPL implements OutletService {
 
     @Override
     public List<ResponseGetOutletDTO> getAllOutlets() {
-        List<Outlet> outlets = outletRepository.findAll();
-        if(!outlets.isEmpty()){
-            return outlets.stream()
-                    .map(outlet -> modelMapper.map(outlet,ResponseGetOutletDTO.class))
-                    .toList();
-        }else{
-            throw new NotFoundException("No Outlets!");
-        }
+        List<Outlet> outlets = outletRepository.findAllByStatusEquals(OutletStatus.Active);
+        return outlets.stream()
+                .map(outlet -> modelMapper.map(outlet,ResponseGetOutletDTO.class))
+                .toList();
+
     }
 
     @Override
@@ -116,5 +114,37 @@ public class OutletServiceIMPL implements OutletService {
 
         // Create a resource from the image file
         return new FileSystemResource(file);
+    }
+
+    @Override
+    public OutletDTO updateOutletStatus(int outletID) {
+        // Find outlet by ID
+        Outlet outlet = outletRepository.findById(outletID)
+                .orElseThrow(() -> new RuntimeException("Outlet not found with ID: " + outletID));
+
+        // Set outlet status to Active
+        outlet.setStatus(OutletStatus.Active);
+
+        // Save the updated outlet
+        Outlet updatedOutlet = outletRepository.save(outlet);
+
+        // Convert to DTO
+        return modelMapper.map(updatedOutlet, OutletDTO.class);
+    }
+
+    @Override
+    public List<ResponseGetOutletDTO> getIncativeOutlets() {
+        List<Outlet> outlets = outletRepository.findAllByStatusEquals(OutletStatus.Inactive);
+        return outlets.stream()
+                .map(outlet -> modelMapper.map(outlet,ResponseGetOutletDTO.class))
+                .toList();
+    }
+
+    @Override
+    public List<ResponseGetOutletDTO> getAllActiveAndInactiveOutlets() {
+        List<Outlet> outlets = outletRepository.findAll();
+        return outlets.stream()
+                .map(outlet -> modelMapper.map(outlet,ResponseGetOutletDTO.class))
+                .toList();
     }
 }
