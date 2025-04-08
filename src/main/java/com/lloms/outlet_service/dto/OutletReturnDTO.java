@@ -22,6 +22,7 @@ public class OutletReturnDTO {
     private Integer returnId;
     private LocalDateTime returnDate;
     private Integer outletId;
+    private String outletName;
     private OutletReturnStatus outletReturnStatus;
     private List<ReturnItemDto> returnItems;
 }
