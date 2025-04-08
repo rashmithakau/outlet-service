@@ -16,8 +16,14 @@ public class ReturnItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer returnItemId;
 
+    @Column
+    private Integer productId;
+
     @Column(nullable = false)
     private double quantity;
+
+    @Column
+    private String reason;
 
     @ManyToOne
     @JoinColumn(name = "return_id", nullable = false)
