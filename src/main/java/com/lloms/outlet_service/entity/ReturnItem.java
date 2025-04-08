@@ -25,6 +25,12 @@ public class ReturnItem {
     @Column
     private String reason;
 
+    @Column
+    private String productName;
+
+    @Column
+    private Double unitPrice;
+
     @ManyToOne
     @JoinColumn(name = "return_id", nullable = false)
     private OutletReturn outletReturn;
