@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class RequestUpdateOutletDTO {
-    private int userId;
+    private String outletName;
+    private String location;
     private OutletStatus status;
-    private String imageUrl;
 }

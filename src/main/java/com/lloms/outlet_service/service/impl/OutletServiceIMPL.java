@@ -89,15 +89,13 @@ public class OutletServiceIMPL implements OutletService {
         if(outletToUpdate.isPresent()){
             Outlet outlet = outletToUpdate.get();
 
-            //update only userId, status and imageUrl
+            outlet.setOutletName(requestUpdateOutletDTO.getOutletName());
+            outlet.setLocation(requestUpdateOutletDTO.getLocation());
             outlet.setStatus(requestUpdateOutletDTO.getStatus());
-            outlet.setImageUrl(requestUpdateOutletDTO.getImageUrl());
 
-            //to save
             Outlet updatedOutlet = outletRepository.save(outlet);
-
-            return modelMapper.map(updatedOutlet,ResponseGetOutletDTO.class);
-        }else{
+            return modelMapper.map(updatedOutlet, ResponseGetOutletDTO.class);
+        } else {
             throw new NotFoundException("Outlet not found with Id "+ outletID);
         }
     }
