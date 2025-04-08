@@ -16,3 +16,5 @@ public class ResponseGetOutletDTO {
     private OutletStatus status;
     private String imageUrl;
 }
+
+

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class OutletReturn {
     private Integer returnId;
 
     @Column(nullable = false)
-    private Date returnDate;
+    private LocalDateTime returnDate;
 
     @Enumerated(EnumType.STRING)
     private OutletReturnStatus outletReturnStatus;
@@ -28,6 +29,7 @@ public class OutletReturn {
     @ManyToOne
     @JoinColumn(name = "outlet_id")
     private Outlet outlet;
+
 
     @OneToMany(mappedBy = "outletReturn", cascade = CascadeType.ALL)
     private List<ReturnItem> returnItems;
