@@ -85,19 +85,22 @@ public class OutletServiceIMPL implements OutletService {
 
     @Override
     public ResponseGetOutletDTO updateOutlet(RequestUpdateOutletDTO requestUpdateOutletDTO, int outletID) {
-        Optional<Outlet> outletToUpdate = outletRepository.findById(outletID);
-        if(outletToUpdate.isPresent()){
-            Outlet outlet = outletToUpdate.get();
+        Outlet outlet = outletRepository.findById(outletID)
+                .orElseThrow(() -> new NotFoundException("Outlet not found with Id "+ outletID));
 
+        // Add null checks and proper conversion
+        if(requestUpdateOutletDTO.getOutletName() != null) {
             outlet.setOutletName(requestUpdateOutletDTO.getOutletName());
-            outlet.setLocation(requestUpdateOutletDTO.getLocation());
-            outlet.setStatus(requestUpdateOutletDTO.getStatus());
-
-            Outlet updatedOutlet = outletRepository.save(outlet);
-            return modelMapper.map(updatedOutlet, ResponseGetOutletDTO.class);
-        } else {
-            throw new NotFoundException("Outlet not found with Id "+ outletID);
         }
+        if(requestUpdateOutletDTO.getLocation() != null) {
+            outlet.setLocation(requestUpdateOutletDTO.getLocation());
+        }
+        if(requestUpdateOutletDTO.getStatus() != null) {
+            outlet.setStatus(requestUpdateOutletDTO.getStatus());
+        }
+
+        Outlet updatedOutlet = outletRepository.save(outlet);
+        return modelMapper.map(updatedOutlet, ResponseGetOutletDTO.class);
     }
 
     @Override
