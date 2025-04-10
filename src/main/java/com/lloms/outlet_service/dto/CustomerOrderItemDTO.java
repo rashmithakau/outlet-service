@@ -1,5 +1,6 @@
 package com.lloms.outlet_service.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CustomerOrderItemDTO {
-    private String cusOrderItemId;
-    private String cusOrderID;
-    private String productID;
+    private int productId;
+    private String productName;
     private double quantity;
+    private double unitPrice;
+    private double discountPerUnit;
 }

@@ -13,6 +13,6 @@ public class OutletDTO {
     private String outletId;
     private String outletName;
     private String location;
-    private String userId;
     private OutletStatus status;
+    private String imageUrl;
 }

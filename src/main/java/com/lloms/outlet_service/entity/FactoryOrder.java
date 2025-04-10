@@ -24,18 +24,12 @@ public class FactoryOrder {
     private Date orderDate;
 
     @Column(nullable = false)
-    private Time orderTime;
-
-    @Column(nullable = false)
     private FactoryOrderStatus status;
 
     @ManyToOne
     @JoinColumn(name = "outlet_id",nullable = false)
     private Outlet outlet;
 
-    @OneToMany(mappedBy = "factoryOrder")
+    @OneToMany(mappedBy = "factoryOrder",cascade = CascadeType.ALL)
     private List<FactoryOrderItem> factoryOrderItems;
-
-
-    //private List<FactoryOrderItem> factoryOrderItems;
 }

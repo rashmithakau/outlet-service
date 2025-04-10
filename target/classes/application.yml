@@ -1,12 +1,20 @@
 spring:
   application:
-    name: PRODUCT-SERVICE
+    name: OUTLET-SERVICE
   datasource:
-    url : jdbc:mysql://productdb.crmk6gmiy488.eu-north-1.rds.amazonaws.com:3306/outletDb?createDatabaseIfNotExist=true
-    username : root
-    password : productDbpwd
+    url : jdbc:mysql://35.222.69.207:3306/outletDb?createDatabaseIfNotExist=true
+    username : springuser
+    password : springuserpwd
+    hikari:
+      maximum-pool-size: 10
+      max-lifetime: 1800000        # 30 mins
+      idle-timeout: 600000         # 10 mins
+      connection-timeout: 30000    # 30 secs
+      validation-timeout: 5000     # 5 secs
+      keepalive-time: 300000       # 5 mins
   jpa :
+    open-in-view: false
     hibernate :
       ddl-auto : update
 server:
-  port: 8080
+  port: 8088

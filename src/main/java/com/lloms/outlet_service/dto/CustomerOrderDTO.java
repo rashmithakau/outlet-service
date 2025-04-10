@@ -12,7 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class CustomerOrderDTO {
-    private String cusOrderID;
     private String outletID;
     private Date orderDate;
     private double discountPerUnit;

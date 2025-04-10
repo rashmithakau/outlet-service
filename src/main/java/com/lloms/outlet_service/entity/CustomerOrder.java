@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -23,19 +22,18 @@ public class CustomerOrder {
     private Date orderDate;
 
     @Column(nullable = false)
-    private Time orderTime;
-
-    @Column(nullable = false)
     private CustomerOrderStatus status;
 
-    private String CustomerName;
+    @Column(nullable = true)
+    private String customerName;
 
-    private String CustomerPhone;
+    @Column(nullable = true)
+    private String customerPhone;
 
     @ManyToOne
     @JoinColumn(name = "outlet_id",nullable = false)
     private Outlet outlet;
 
-    @OneToMany(mappedBy = "customerOrder")
+    @OneToMany(mappedBy = "customerOrder",cascade = CascadeType.ALL)
     private List<CustomerOrderItem> customerOrderItem;
 }
